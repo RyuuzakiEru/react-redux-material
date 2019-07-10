@@ -23,5 +23,5 @@ La prueba consiste en una supuesta tienda creada con tecnología legacy que quer
 - Básicamente queremos ver tu dominio con el ecosistema de React.
 - Nos fijaremos con especial detalle como manejas el estado de la aplicación, si quieres hacer sobre-ingeniería para demostrar tus capacidades este sería uno de los mejores apartados.
 - Nos gusta ver un código bien estructurado, limpio y que siga las buenas prácticas.
-- Nos encantan el código con tests.
+- Nos encanta el código con tests.
 - La prueba se centra en React, pero como podrás comprobar tanto el marcado HTML como el CSS es mejorable, aunque no será algo negativo si no se hace, si será positivo que intentes mejorarlo.
