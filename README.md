@@ -2,11 +2,11 @@
 
 ## Descripción de la prueba
 
-La prueba consiste en una supuesta tienda creada con tecnología legacy que queremos actualizar a React.
+La prueba consiste en una supuesta tienda creada con tecnología legacy que queremos actualizar a React. Puedes ver la maqueta desde esta url https://friendly-williams-0142de.netlify.com/
 
 ## Casos de usos a realizar
 
-1. Conectarse a la API http://www.mocky.io/v2/5d1f23b53100003e74ebeaee para recuperar los productos y listarlos en la home. (La API no responde las imágenes que muestra el HTML, se usa el servicio picsum que genera imágnes de este tipo https://picsum.photos/id/988/300/300)
+1. Conectarse a la API http://www.mocky.io/v2/5d1f23b53100003e74ebeaee para recuperar los productos y listarlos en la home. (La API no responde las imágenes que muestra el HTML, se usa el servicio picsum que genera imágenes de este tipo https://picsum.photos/id/988/300/300)
 2. En el header se visualizará siempre un icono con el total de artículos que tiene el usuario en el carrito.
 3. El listado de productos se va a poder filtrar por rango de precio y talla.
 4. En el listado se podrá identificar los productos marcados en oferta.
