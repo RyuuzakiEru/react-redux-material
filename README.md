@@ -1,4 +1,4 @@
-# LK test frontend react
+# Lookiero frontend React Test
 
 ## Descripción de la prueba
 
