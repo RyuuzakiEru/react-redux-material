@@ -2,12 +2,14 @@ import {
 	FETCH_PRODUCTS_BEGIN,
 	FETCH_PRODUCTS_SUCCESS,
 	FETCH_PRODUCTS_FAILURE,
-	FILTER_SIZE
+    FILTER_SIZE,
+    FILTER_PRICE
 } from '../actions/productActions';
 
 const defaultState = {
 	filter: {
-		sizes: ['small', 'medium', 'large']
+        sizes: ['small', 'medium', 'large'],
+        priceRange: [0, 20000]
 	},
 	products: [],
 	loading: false,
@@ -15,7 +17,9 @@ const defaultState = {
 };
 
 export default function productReducer(state = defaultState, action) {
-	const { filter } = state;
+    const { filter } = state;
+
+    let nextFilter = {...filter};
 	switch (action.type) {
 		case FETCH_PRODUCTS_BEGIN:
 			// Mark the state as "loading" so we can show a spinner or something
@@ -52,19 +56,24 @@ export default function productReducer(state = defaultState, action) {
 				products: []
 			};
 		case FILTER_SIZE:
-			let nextSizesFilter = [...filter.sizes];
 
-			if (nextSizesFilter.includes(action.size)) {
-				nextSizesFilter = nextSizesFilter.filter(size => size !== action.size);
+			if (nextFilter.sizes.includes(action.size)) {
+				nextFilter.sizes = nextFilter.sizes.filter(size => size !== action.size);
 			} else {
-				nextSizesFilter.push(action.size);
+				nextFilter.sizes.push(action.size);
 			}
 			return {
 				...state,
-				filter: {
-					sizes: [...nextSizesFilter]
+				filter: nextFilter
 				}
-			};
+			;
+
+            case FILTER_PRICE:
+                nextFilter.priceRange= action.values;
+                return {
+                    ...state,
+                    filter: nextFilter
+                };
 
 		default:
 			// ALWAYS have a default case in a reducer

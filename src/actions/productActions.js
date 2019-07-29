@@ -41,6 +41,7 @@ export const FETCH_PRODUCTS_BEGIN = 'FETCH_PRODUCTS_BEGIN';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 export const FILTER_SIZE = 'FILTER_SIZE';
+export const FILTER_PRICE = 'FILTER_PRICE';
 
 export const fetchProductsBegin = () => ({
 	type: FETCH_PRODUCTS_BEGIN
@@ -60,3 +61,10 @@ export const toggleSize = size => ({
     type: FILTER_SIZE,
     size
 })
+
+export const filterPrice = priceRange => ({
+    type: FILTER_PRICE,
+    priceRange
+})
+
+

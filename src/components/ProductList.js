@@ -30,7 +30,10 @@ class ProductList extends Component {
 					flexWrap="wrap"
 				>
 					{products.map(product => (
-							this.props.productList.filter.sizes.includes(product.size) && <ProductCard key={product._id} product={product} />
+                            this.props.productList.filter.sizes.includes(product.size) &&
+                            product.priceNumber > this.props.productList.filter.priceRange[0] &&
+                            product.priceNumber < this.props.productList.filter.priceRange[1] &&
+                            <ProductCard key={product._id} product={product} />
 
 					))}
 				</Box>

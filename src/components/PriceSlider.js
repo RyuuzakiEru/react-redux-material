@@ -3,6 +3,11 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+
+import {formatPrice} from '../lib/priceUtil'
+
+import { FILTER_PRICE } from '../actions/productActions';
 
 import debounce from 'debounce';
 
@@ -23,16 +28,16 @@ const marks = [
 		value: 0
 	},
 	{
-		value: 50
+		value: 5000
 	},
 	{
-		value: 100
+		value: 10000
 	},
 	{
-		value: 150
+		value: 15000
 	},
 	{
-		value: 200
+		value: 20000
 	}
 ];
 
@@ -90,23 +95,39 @@ const PriceSlider = props => {
 	const classes = useStyles();
 
 	const handleChange = (event, values) => {
-		console.log(values);
+		props.filterPrice(values);
 	};
 	return (
 		<Paper display="flex" className={classes.root}>
 			<Typography>Price Range</Typography>
 			<CustomSlider
 				valueLabelDisplay="on"
-				valueLabelFormat={val => `${val} $`}
+				valueLabelFormat={val => formatPrice(val)}
 				marks={marks}
 				aria-label="price"
 				onChange={debounce(handleChange, 300)}
 				min={0}
-				max={200}
-				defaultValue={[10, 100]}
+				max={20000}
+				defaultValue={[props.min, props.max]}
 			/>
 		</Paper>
 	);
 };
 
-export default PriceSlider;
+const mapStateToProps = state => {
+	return {
+		min: state.productList.filter.priceRange[0],
+		max: state.productList.filter.priceRange[1]
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		filterPrice: values => dispatch({ type: FILTER_PRICE, values })
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(PriceSlider);

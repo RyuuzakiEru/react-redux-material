@@ -17,5 +17,5 @@ export const parsePrice = priceString => {
 
 
 export const formatPrice = priceNumber => {
-
+    return (priceNumber/100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 }
