@@ -7,6 +7,9 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
+
+import {formatPrice} from '../lib/priceUtil'
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
@@ -55,6 +58,10 @@ function ProductCard(props) {
 			</Typography>
 			<Typography color="textPrimary" component="h2">
 				{product.name}
+			</Typography>
+
+			<Typography color="textPrimary" component="h3">
+				{formatPrice(product.priceNumber)}
 			</Typography>
 			{product.onSale && (
 				<img
