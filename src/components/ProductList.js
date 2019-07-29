@@ -7,13 +7,7 @@ import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
 
 class ProductList extends Component {
-	state = {
-		productList: {
-			products: [],
-			loading: false,
-			error: null
-		}
-	};
+
 
 	componentDidMount() {
 		this.props.dispatch(fetchProducts());
@@ -36,7 +30,7 @@ class ProductList extends Component {
 					flexWrap="wrap"
 				>
 					{products.map(product => (
-							<ProductCard key={product._id} product={product} />
+							this.props.productList.filter.sizes.includes(product.size) && <ProductCard key={product._id} product={product} />
 
 					))}
 				</Box>

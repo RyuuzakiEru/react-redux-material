@@ -4,6 +4,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+import { connect } from 'react-redux';
+
+import {FILTER_SIZE} from '../actions/productActions';
+
 const useStyles = makeStyles(theme => ({
 	root: {
 		flex: 1,
@@ -12,19 +17,16 @@ const useStyles = makeStyles(theme => ({
 	},
 
 	checkbox: {
+		marginRight: -20,
 		flexShrink: 1
 	}
 }));
-export default function SizeFilter() {
+const SizeFilter = props => {
 	const classes = useStyles();
-	const [state, setState] = React.useState({
-		checkedSmall: true,
-		checkedMedium: true,
-		checkedLarge: true
-	});
 
-	const handleChange = name => event => {
-		setState({ ...state, [name]: event.target.checked });
+	const handleChange = event => {
+        console.log(event.target.value);
+        props.toggleSize(event.target.value);
 	};
 
 	return (
@@ -37,9 +39,9 @@ export default function SizeFilter() {
 					label="S"
 					control={
 						<Checkbox
-							checked={state.checkedSmall}
-							onChange={handleChange('checkedSmall')}
-							value="checkedSmall"
+							checked={props.small}
+							onChange={handleChange}
+							value="small"
 						/>
 					}
 				/>
@@ -49,9 +51,9 @@ export default function SizeFilter() {
 					label="M"
 					control={
 						<Checkbox
-							checked={state.checkedMedium}
-							onChange={handleChange('checkedMedium')}
-							value="checkedMedium"
+							checked={props.medium}
+							onChange={handleChange}
+							value="medium"
 						/>
 					}
 				/>
@@ -61,13 +63,32 @@ export default function SizeFilter() {
 					label="L"
 					control={
 						<Checkbox
-							checked={state.checkedLarge}
-							onChange={handleChange('checkedLarge')}
-							value="checkedLarge"
+							checked={props.large}
+							onChange={handleChange}
+							value="large"
 						/>
 					}
 				/>
 			</div>
 		</div>
 	);
-}
+};
+
+const mapStateToProps = state => {
+	return {
+		small: state.productList.filter.sizes.includes('small'),
+		medium: state.productList.filter.sizes.includes('medium'),
+		large: state.productList.filter.sizes.includes('large')
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleSize: size => dispatch({ type: FILTER_SIZE, size })
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SizeFilter);

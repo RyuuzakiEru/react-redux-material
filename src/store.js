@@ -6,6 +6,9 @@ import rootReducer from './reducers/index';
 
 const defaultState = {
 	productList: {
+        filter: {
+            sizes: ['small','medium','large']
+        },
 		products: [],
 		loading: false,
 		error: null

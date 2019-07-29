@@ -2,14 +2,17 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import AppBar from '@material-ui/core/AppBar';
-import Fab from '@material-ui/core/Fab';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography'
+
+import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import CartItem from './CartItem'
+import { OPEN_CART, CLOSE_CART } from '../actions/cartActions';
+
+import CartItem from './CartItem';
 
 import { connect } from 'react-redux';
 
@@ -22,12 +25,26 @@ const useStyles = makeStyles({
 		bottom: 0
 	},
 	shopButton: {
+		zIndex: 999,
+		top: -30,
+		left: 0,
+		right: 0,
+		margin: '0 auto'
+	},
+	closeButton: {
 		position: 'absolute',
 		zIndex: 1,
 		top: -30,
 		left: 0,
 		right: 0,
 		margin: '0 auto'
+	},
+	drawerHeader: {
+        display: 'flex',
+        flexDirection: 'column',
+		alignItems: 'center',
+		padding: '0 8px',
+		justifyContent: 'flex-end'
 	},
 	drawerPaper: {
 		height: '80%'
@@ -40,15 +57,10 @@ const ShoppingCartDrawer = props => {
 	const fullList = () => (
 		<div role="presentation">
 			<List className={classes.fullList}>
-				<ListItem>
-					<ListItemText>CART</ListItemText>
-				</ListItem>
-
-				{props.cartItems.map( cartItem  => (
-                    cartItem.product &&	<CartItem key={cartItem.id} item={cartItem} />
-                ))}
-
-
+				{props.cartItems.map(
+					cartItem =>
+						cartItem && <CartItem key={cartItem.id} id={cartItem.id} />
+				)}
 			</List>
 		</div>
 	);
@@ -57,24 +69,33 @@ const ShoppingCartDrawer = props => {
 		<div>
 			<AppBar position="fixed" className={classes.appBar}>
 				<Toolbar>
-					<Fab
+					<IconButton
 						color="secondary"
-						aria-label="add"
+						aria-label="open"
 						className={classes.shopButton}
-						onClick={props.toggleCart}
+						onClick={props.openCart}
 					>
 						<ShoppingCartIcon />
-						<Drawer
-							variant="persistent"
-							anchor="bottom"
-							open={props.cartOpen}
-							classes={{
-								paper: classes.drawerPaper
-							}}
-						>
-							{fullList()}
-						</Drawer>
-					</Fab>
+					</IconButton>
+					<Drawer
+                        variant="persistent"
+                        elevation={16}
+						anchor="bottom"
+						open={props.cartOpen}
+						classes={{
+							paper: classes.drawerPaper
+						}}
+					>
+						<div className={classes.drawerHeader}>
+							<Typography variant="h4" gutterBottom>
+								CART
+							</Typography>
+							<IconButton onClick={props.closeCart}>
+								<CancelIcon fontSize={'large'} />
+							</IconButton>
+						</div>
+						{fullList()}
+					</Drawer>
 				</Toolbar>
 			</AppBar>
 		</div>
@@ -88,7 +109,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		toggleCart: () => dispatch({ type: 'TOGGLE_CART' })
+		openCart: () => dispatch({ type: OPEN_CART }),
+		closeCart: () => dispatch({ type: CLOSE_CART })
 	};
 };
 

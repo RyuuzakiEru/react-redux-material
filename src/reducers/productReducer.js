@@ -1,21 +1,27 @@
 import {
 	FETCH_PRODUCTS_BEGIN,
 	FETCH_PRODUCTS_SUCCESS,
-	FETCH_PRODUCTS_FAILURE
+	FETCH_PRODUCTS_FAILURE,
+	FILTER_SIZE
 } from '../actions/productActions';
 
 const defaultState = {
+	filter: {
+		sizes: ['small', 'medium', 'large']
+	},
 	products: [],
 	loading: false,
 	error: null
 };
 
 export default function productReducer(state = defaultState, action) {
+	const { filter } = state;
 	switch (action.type) {
 		case FETCH_PRODUCTS_BEGIN:
 			// Mark the state as "loading" so we can show a spinner or something
 			// Also, reset any errors. We're starting fresh.
 			return {
+				filter,
 				loading: true,
 				error: false,
 				products: []
@@ -25,6 +31,7 @@ export default function productReducer(state = defaultState, action) {
 			// All done: set loading "false".
 			// Also, replace the items with the ones from the server
 			return {
+				filter,
 				error: false,
 				loading: false,
 				products: action.payload.products
@@ -39,9 +46,24 @@ export default function productReducer(state = defaultState, action) {
 			// maybe you want to keep the items around!
 			// Do whatever seems right for your use case.
 			return {
+				filter,
 				error: true,
 				loading: false,
 				products: []
+			};
+		case FILTER_SIZE:
+			let nextSizesFilter = [...filter.sizes];
+
+			if (nextSizesFilter.includes(action.size)) {
+				nextSizesFilter = nextSizesFilter.filter(size => size !== action.size);
+			} else {
+				nextSizesFilter.push(action.size);
+			}
+			return {
+				...state,
+				filter: {
+					sizes: [...nextSizesFilter]
+				}
 			};
 
 		default:
