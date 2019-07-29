@@ -19,15 +19,16 @@ const defaultState = {
 		cartOpen: false
 	}
 };
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
 	rootReducer,
-	defaultState,
+    defaultState,
 
 
-    compose(
-		applyMiddleware(thunk),
-		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+    composeEnhancers(
+		applyMiddleware(thunk)
 	)
 );
 
