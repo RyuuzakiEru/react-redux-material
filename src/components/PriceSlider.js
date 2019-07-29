@@ -7,97 +7,114 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  }
+	root: {
+        display: 'flex',
+        flexFlow: 'column',
+        flexGrow: 1,
+        justifyContent: 'space-around',
+        boxShadow: 'inherit'
+	}
 }));
 
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
+const  ValueLabelComponent = (props) => {
 
-  const popperRef = React.useRef(null);
-  React.useEffect(() => {
-    if (popperRef.current) {
-      popperRef.current.update();
-    }
-  });
+	return (
+		<Tooltip
+            open={true}
+            placement='bottom'
+			enterTouchDelay={0}
+			title={`${props.value} $`}
 
-  return (
-    <Tooltip
-      PopperProps={{
-        popperRef,
-      }}
-      open={open}
-      enterTouchDelay={0}
-      placement="top"
-      title={value}
-    >
-      {children}
-    </Tooltip>
-  );
+        />
+	);
 }
 
-ValueLabelComponent.propTypes = {
-  children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.number.isRequired,
-};
-/*const marks = [
+const iOSBoxShadow =
+  '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
+const marks = [
   {
     value: 0,
-  },
-  {
-    value: 25,
   },
   {
     value: 50,
   },
   {
-    value: 75,
-  },
-  {
     value: 100,
   },
-];*/
+  {
+    value: 150,
+  },
+  {
+    value: 200,
+  },
+];
 
 const CustomSlider = withStyles({
-  root: {
-    color: '#52af77',
-    height: 8,
-  },
-  thumb: {
-    height: 24,
-    width: 24,
-    backgroundColor: '#fff',
-    border: '2px solid currentColor',
-    marginTop: -8,
-    marginLeft: -12,
-    '&:focus,&:hover,&$active': {
-      boxShadow: 'inherit',
+    root: {
+      color: '#19857b',
+      height: 2,
+      padding: '15px 0',
     },
-  },
-  active: {},
-  valueLabel: {
-    left: 'calc(-50% + 4px)',
-  },
-  track: {
-    height: 8,
-    borderRadius: 4,
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4,
-  },
-})(Slider);
+    thumb: {
+      height: 28,
+      width: 28,
+      backgroundColor: '#fff',
+      boxShadow: iOSBoxShadow,
+      marginTop: -10,
+      marginLeft: -14,
+      '&:focus,&:hover,&$active': {
+        boxShadow: '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)',
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          boxShadow: iOSBoxShadow,
+        },
+      },
+    },
+    active: {},
+    valueLabel: {
+      left: 'calc(-50% + 11px)',
+      top: -20,
+      '& *': {
+        background: 'transparent',
+        color: '#000',
+      },
+    },
+    track: {
+      height: 2,
+    },
+    rail: {
+      height: 2,
+      opacity: 0.5,
+      backgroundColor: '#bfbfbf',
+    },
+    mark: {
+      backgroundColor: '#bfbfbf',
+      height: 30,
+      width: 2,
+      marginTop: -14,
+    },
+    markActive: {
+      backgroundColor: 'currentColor',
+    },
+  })(Slider);
 
+const PriceSlider = (props) => {
+	const classes = useStyles();
 
-export default function PriceSlider() {
-  const classes = useStyles();
-
-  return (
-    <Paper className={classes.root}>
-      <Typography gutterBottom>Price Range</Typography>
-      <CustomSlider valueLabelDisplay="auto" aria-label="price slider" defaultValue={[0,100]} />
-    </Paper>
-  );
+	return (
+		<Paper display="flex" className={classes.root}>
+			<Typography >Price Range</Typography>
+			<CustomSlider
+                valueLabelDisplay="on"
+                valueLabelFormat= { val => `${val} $`}
+                marks={marks}
+				aria-label="price"
+				min={0}
+				max={200}
+				defaultValue={[10, 100]}
+			/>
+		</Paper>
+	);
 }
+
+export default PriceSlider;

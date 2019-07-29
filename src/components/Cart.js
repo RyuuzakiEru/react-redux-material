@@ -4,10 +4,8 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography'
-
-import IconButton from '@material-ui/core/IconButton';
-import CancelIcon from '@material-ui/icons/Cancel';
+import Fab from '@material-ui/core/Fab';
+import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { OPEN_CART, CLOSE_CART } from '../actions/cartActions';
@@ -32,16 +30,16 @@ const useStyles = makeStyles({
 		margin: '0 auto'
 	},
 	closeButton: {
-		position: 'absolute',
-		zIndex: 1,
-		top: -30,
+        position: 'fixed',
+        top:'17%',
+		zIndex: 1400,
 		left: 0,
 		right: 0,
 		margin: '0 auto'
 	},
 	drawerHeader: {
-        display: 'flex',
-        flexDirection: 'column',
+		display: 'flex',
+		flexDirection: 'column',
 		alignItems: 'center',
 		padding: '0 8px',
 		justifyContent: 'flex-end'
@@ -69,31 +67,32 @@ const ShoppingCartDrawer = props => {
 		<div>
 			<AppBar position="fixed" className={classes.appBar}>
 				<Toolbar>
-					<IconButton
+					<Fab
 						color="secondary"
 						aria-label="open"
 						className={classes.shopButton}
 						onClick={props.openCart}
 					>
 						<ShoppingCartIcon />
-					</IconButton>
+					</Fab>
 					<Drawer
-                        variant="persistent"
-                        elevation={16}
+						variant="persistent"
+						elevation={16}
 						anchor="bottom"
 						open={props.cartOpen}
 						classes={{
 							paper: classes.drawerPaper
 						}}
 					>
-						<div className={classes.drawerHeader}>
-							<Typography variant="h4" gutterBottom>
-								CART
-							</Typography>
-							<IconButton onClick={props.closeCart}>
-								<CancelIcon fontSize={'large'} />
-							</IconButton>
-						</div>
+
+							<Fab
+                                aria-label="close"
+                                color="secondary"
+								className={classes.closeButton}
+								onClick={props.closeCart}
+							>
+								<CloseIcon fontSize={'large'} />
+							</Fab>
 						{fullList()}
 					</Drawer>
 				</Toolbar>

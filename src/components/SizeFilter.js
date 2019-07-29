@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+
 import { connect } from 'react-redux';
 
 import {FILTER_SIZE} from '../actions/productActions';
@@ -12,13 +13,19 @@ import {FILTER_SIZE} from '../actions/productActions';
 const useStyles = makeStyles(theme => ({
 	root: {
 		flex: 1,
-		flexGrow: 1,
-		flexFlow: 'column'
+        flexFlow: 'column',
+        alignSelf: 'flex-end',
+        textAlign: 'center',
+        flexShrink: 1,
+        paddingLeft:20
 	},
-
+    header: {
+        alignSelf: 'center'
+    },
 	checkbox: {
-		marginRight: -20,
-		flexShrink: 1
+        width:18,
+        marginRight:5,
+        marginLeft: 5
 	}
 }));
 const SizeFilter = props => {
@@ -31,8 +38,9 @@ const SizeFilter = props => {
 
 	return (
 		<div>
-			<Typography gutterBottom>Sizes</Typography>
 			<div className={classes.root}>
+
+            <Typography className={classes.header}>Sizes</Typography>
 				<FormControlLabel
 					className={classes.checkbox}
 					labelPlacement="top"
