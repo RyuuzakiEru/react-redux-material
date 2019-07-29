@@ -20,18 +20,22 @@ const useStyles = makeStyles({
 	},
 	appBar: {
 		top: 'auto',
-		bottom: 0
+		bottom: 0,
+
+        height: 0,
+        boxShadow: 'none',
+		backgroundColor: 'transparent'
 	},
 	shopButton: {
 		zIndex: 999,
-		top: -30,
+		top: -60,
 		left: 0,
 		right: 0,
 		margin: '0 auto'
 	},
 	closeButton: {
-        position: 'fixed',
-        top:'17%',
+		position: 'fixed',
+		top: '17%',
 		zIndex: 1400,
 		left: 0,
 		right: 0,
@@ -65,7 +69,7 @@ const ShoppingCartDrawer = props => {
 
 	return (
 		<div>
-			<AppBar position="fixed" className={classes.appBar}>
+			<AppBar className={classes.appBar}>
 				<Toolbar>
 					<Fab
 						color="secondary"
@@ -84,15 +88,14 @@ const ShoppingCartDrawer = props => {
 							paper: classes.drawerPaper
 						}}
 					>
-
-							<Fab
-                                aria-label="close"
-                                color="secondary"
-								className={classes.closeButton}
-								onClick={props.closeCart}
-							>
-								<CloseIcon fontSize={'large'} />
-							</Fab>
+						<Fab
+							aria-label="close"
+							color="secondary"
+							className={classes.closeButton}
+							onClick={props.closeCart}
+						>
+							<CloseIcon fontSize={'large'} />
+						</Fab>
 						{fullList()}
 					</Drawer>
 				</Toolbar>

@@ -28,16 +28,16 @@ const marks = [
 		value: 0
 	},
 	{
+		value: 2500
+	},
+	{
 		value: 5000
 	},
 	{
+		value: 7500
+	},
+	{
 		value: 10000
-	},
-	{
-		value: 15000
-	},
-	{
-		value: 20000
 	}
 ];
 
@@ -107,7 +107,7 @@ const PriceSlider = props => {
 				aria-label="price"
 				onChange={debounce(handleChange, 300)}
 				min={0}
-				max={20000}
+				max={10000}
 				defaultValue={[props.min, props.max]}
 			/>
 		</Paper>

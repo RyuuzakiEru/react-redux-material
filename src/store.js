@@ -8,7 +8,7 @@ const defaultState = {
 	productList: {
 		filter: {
 			sizes: ['small', 'medium', 'large'],
-			priceRange: [0, 20000]
+			priceRange: [0, 10000]
 		},
 		products: [],
 		loading: false,

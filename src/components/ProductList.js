@@ -22,11 +22,10 @@ class ProductList extends Component {
 		if (products) {
 
 			return (
-				<Box mx={5}
-					maxWidth="lg"
+				<Box
+					maxWidth="md"
 					display="flex"
                     justifyContent="flex-start"
-                    alignItems="flex-start"
 					flexWrap="wrap"
 				>
 					{products.map(product => (
