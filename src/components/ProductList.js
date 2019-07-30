@@ -4,6 +4,7 @@ import Loading from './Loading'
 import { fetchProducts } from '../actions/productActions';
 import { connect } from 'react-redux';
 
+import Navigation from './Navigation'
 import Box from '@material-ui/core/Box';
 
 class ProductList extends Component {
@@ -22,6 +23,8 @@ class ProductList extends Component {
 		if (products) {
 
 			return (
+<>
+                <Navigation />
 				<Box
 					maxWidth="md"
 					display="flex"
@@ -36,6 +39,7 @@ class ProductList extends Component {
 
 					))}
 				</Box>
+                </>
 			);
 		}
 		if (loading) return <p>Loading</p>;

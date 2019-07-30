@@ -18,7 +18,6 @@ export default class App extends Component {
 				<ThemeProvider theme={theme}>
 
 					<Router>
-                    <Navigation />
 						<Route path="/" exact component={ProductList} />
                         <Route path="/item/:id" exact component={ProductDetail} />
 					</Router>

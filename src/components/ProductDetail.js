@@ -20,14 +20,15 @@ const styles = theme => ({
     container: {
         display:'flex',
         alignItems:'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 	card: {
 		maxWidth: 600,
 		margin: 8,
 		display: 'flex',
 		flexFlow: 'column',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        marginBottom:40,
 
 	},
 	title: {
@@ -43,6 +44,7 @@ const styles = theme => ({
 		paddingTop: '56.25%' // 16:9
 	},
 	sale: {
+        position:'absolute',
 		marginLeft: 10,
 		paddingTop: 10
 	},
@@ -95,6 +97,7 @@ class ProductDetail extends Component {
 						<ArrowBackIosIcon> {product.name} </ArrowBackIosIcon>
 					</Link>
 					<Card className={classes.card}>
+                        <div className="title">
 							<Typography
 								className={classes.size}
 								color="textSecondary"
@@ -114,6 +117,9 @@ class ProductDetail extends Component {
 									{product.price}
 								</Typography>
 							)}
+                            </div>
+                            <div className="media">
+
 							{product.onSale && (
 								<img
 									className={classes.sale}
@@ -122,12 +128,12 @@ class ProductDetail extends Component {
 									height="50"
 									width="50"
 								/>
-							)}
-							<CardMedia
+                            )}
+                            <CardMedia
 								className={classes.media}
 								image={product.picture}
 								title={product.name}
-							/>
+							/></div>
 
 						<div className={classes.bottom}>
 							<CardContent>
