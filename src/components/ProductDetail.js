@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 
@@ -17,34 +18,39 @@ import { fetchProducts } from '../actions/productActions';
 import { connect } from 'react-redux';
 
 const styles = theme => ({
-    container: {
-        display:'flex',
-        alignItems:'center',
-        justifyContent: 'center',
-    },
+    root: {
+		width: '100%',
+        padding: 20,
+        display: 'flex',
+        textDecoration: 'none'
+	},
+	container: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
 	card: {
 		maxWidth: 600,
 		margin: 8,
 		display: 'flex',
 		flexFlow: 'column',
-        justifyContent: 'flex-start',
-        marginBottom:40,
-
+		justifyContent: 'flex-start',
+		marginBottom: 40
 	},
 	title: {
 		minHeight: 30,
 		textTransform: 'uppercase'
-    },
-    link: {
-        textDecoration: 'none',
-    },
+	},
+	link: {
+		textDecoration: 'none'
+	},
 	media: {
 		height: 0,
 		marginTop: 10,
 		paddingTop: '56.25%' // 16:9
 	},
 	sale: {
-        position:'absolute',
+		position: 'absolute',
 		marginLeft: 10,
 		paddingTop: 10
 	},
@@ -66,89 +72,101 @@ const styles = theme => ({
 	salePrice: {
 		color: 'red',
 		textDecoration: 'line-through',
-        marginLeft: 5,
-        fontSize: '0.9em'
-    	}
-})
+		marginLeft: 5,
+		fontSize: '0.9em'
+	}
+});
 class ProductDetail extends Component {
-
-    constructor(props) {
-        super(props);
-        // bind "this" to handleAddToCart scope
-        this.handleAddToCart = this.handleAddToCart.bind(this);
-      }
+	constructor(props) {
+		super(props);
+		// bind "this" to handleAddToCart scope
+		this.handleAddToCart = this.handleAddToCart.bind(this);
+	}
 
 	componentDidMount() {
 		this.props.fetchProducts();
 	}
 
-    handleAddToCart() {
-        this.props.addToCart(this.props.product)
-    }
+	handleAddToCart() {
+		this.props.addToCart(this.props.product);
+	}
 
 	render() {
-        const { classes } = this.props;
+		const { classes } = this.props;
 		const { product } = this.props;
 
 		if (product) {
 			return (
-				<Container maxWidth="lg" className={classes.container}>
-					<Link to="/" className={classes.link}>
-						<ArrowBackIosIcon> {product.name} </ArrowBackIosIcon>
-					</Link>
-					<Card className={classes.card}>
-                        <div className="title">
-							<Typography
-								className={classes.size}
-								color="textSecondary"
-								component="strong"
-							>
-								{product.size.substring(0, 1)}
-							</Typography>
-							<Typography color="textPrimary" component="h2">
-								{product.name}
-							</Typography>
+				<>
+					<Paper>
+						<Link to="/"  className={classes.root} component="button">
+							<ArrowBackIosIcon />
 
-							<Typography color="textPrimary" component="strong">
-								{formatPrice(product.priceNumber)}
-							</Typography>
-							{product.onSale && (
-								<Typography className={classes.salePrice} component="span">
-									{product.price}
+                        <Typography className={classes.heading}>Back</Typography>
+						</Link>
+					</Paper>
+					<Container maxWidth="lg" className={classes.container}>
+						<Card className={classes.card}>
+							<div className="title">
+								<Typography
+									className={classes.size}
+									color="textSecondary"
+									component="strong"
+								>
+									{product.size.substring(0, 1)}
 								</Typography>
-							)}
-                            </div>
-                            <div className="media">
+								<Typography color="textPrimary" component="h2">
+									{product.name}
+								</Typography>
 
-							{product.onSale && (
-								<img
-									className={classes.sale}
-									src="/img/discount.svg"
-									alt="On Sale"
-									height="50"
-									width="50"
+								<Typography color="textPrimary" component="strong">
+									{formatPrice(product.priceNumber)}
+								</Typography>
+								{product.onSale && (
+									<Typography className={classes.salePrice} component="span">
+										{product.price}
+									</Typography>
+								)}
+							</div>
+							<div className="media">
+								{product.onSale && (
+									<img
+										className={classes.sale}
+										src="/img/discount.svg"
+										alt="On Sale"
+										height="50"
+										width="50"
+									/>
+								)}
+								<CardMedia
+									className={classes.media}
+									image={product.picture}
+									title={product.name}
 								/>
-                            )}
-                            <CardMedia
-								className={classes.media}
-								image={product.picture}
-								title={product.name}
-							/></div>
+							</div>
 
-						<div className={classes.bottom}>
-							<CardContent>
-								<Typography variant="body2" color="textSecondary" component="p">
-									{product.description}
-								</Typography>
-							</CardContent>
-							<CardActions>
-								<IconButton aria-label="add to cart" onClick={this.handleAddToCart}>
-									<AddShoppingCartIcon /> Add to Cart
-								</IconButton>
-							</CardActions>
-						</div>
-					</Card>
-				</Container>
+							<div className={classes.bottom}>
+								<CardContent>
+									<Typography
+										variant="body2"
+										color="textSecondary"
+										component="p"
+									>
+										{product.description}
+									</Typography>
+								</CardContent>
+								<CardActions>
+									<IconButton
+										aria-label="add to cart"
+										onClick={this.handleAddToCart}
+									>
+										<AddShoppingCartIcon /> Add to Cart
+									</IconButton>
+								</CardActions>
+							</div>
+						</Card>
+					</Container>
+				</>
 			);
 		} else {
 			return (
@@ -174,10 +192,12 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => {
 	return {
-        addToCart: product => dispatch({ type: 'ADD_TO_CART', product }),
-        fetchProducts: () => dispatch(fetchProducts())
+		addToCart: product => dispatch({ type: 'ADD_TO_CART', product }),
+		fetchProducts: () => dispatch(fetchProducts())
 	};
 };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ProductDetail));
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withStyles(styles)(ProductDetail));
