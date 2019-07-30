@@ -23,7 +23,10 @@ const useStyles = makeStyles(theme => ({
 	title: {
 		minHeight: 30,
 		textTransform: 'uppercase'
-	},
+    },
+    link: {
+        textDecoration: 'none',
+    },
 	media: {
 		height: 0,
 		marginTop: 10,
@@ -31,14 +34,14 @@ const useStyles = makeStyles(theme => ({
 	},
 	sale: {
 		position: 'absolute',
-		paddingLeft: 10,
-		paddingTop: 25
+		marginLeft: 10,
+		paddingTop: 10
 	},
 	size: {
-		width: 20,
+		width: 30,
 		float: 'right',
-		padding: 4,
-		marginTop: 5,
+		padding: 3,
+		marginTop: 3,
 		textAlign: 'center',
 		textTransform: 'uppercase',
 		background: "url('/img/tshirt.svg') no-repeat"
@@ -52,8 +55,9 @@ const useStyles = makeStyles(theme => ({
 	salePrice: {
 		color: 'red',
 		textDecoration: 'line-through',
-		marginLeft: 5
-	}
+        marginLeft: 5,
+        fontSize: '0.9em'
+    	}
 }));
 
 function ProductCard(props) {
@@ -66,7 +70,7 @@ function ProductCard(props) {
 	};
 	return (
 		<Card className={classes.card}>
-			<Link to={`/item/${product._id}`}>
+			<Link to={`/item/${product._id}`} className={classes.link}>
 				<div className={classes.title}>
 					<Typography
 						className={classes.size}
@@ -88,23 +92,23 @@ function ProductCard(props) {
 						</Typography>
 					)}
 				</div>
-			</Link>
-			<div>
-				{product.onSale && (
-					<img
-						className={classes.sale}
-						src="/img/discount.svg"
-						alt="On Sale"
-						height="50"
-						width="50"
+				<div>
+					{product.onSale && (
+						<img
+							className={classes.sale}
+							src="/img/discount.svg"
+							alt="On Sale"
+							height="50"
+							width="50"
+						/>
+					)}
+					<CardMedia
+						className={classes.media}
+						image={product.picture}
+						title={product.name}
 					/>
-				)}
-				<CardMedia
-					className={classes.media}
-					image={product.picture}
-					title={product.name}
-				/>
-			</div>
+				</div>
+			</Link>
 			<div className={classes.bottom}>
 				<CardContent>
 					<Typography variant="body2" color="textSecondary" component="p">
