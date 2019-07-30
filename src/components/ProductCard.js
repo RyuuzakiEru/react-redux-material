@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 	sale: {
 		position: 'absolute',
 		paddingLeft: 10,
-		paddingTop: 15
+		paddingTop: 25
 	},
 	size: {
 		width: 20,
@@ -50,7 +50,8 @@ const useStyles = makeStyles(theme => ({
     },
     salePrice: {
         color: 'red',
-        textDecoration:'line-through'
+        textDecoration:'line-through',
+        marginLeft:5
     }
 }));
 
@@ -79,7 +80,7 @@ function ProductCard(props) {
 				<Typography color="textPrimary" component="strong">
 					{formatPrice(product.priceNumber)}
 				</Typography>
-                {product.onSale && <Typography className={classes.salePrice}>
+                {product.onSale && <Typography className={classes.salePrice} component="span">
 					{product.price}
 				</Typography>
                 }
