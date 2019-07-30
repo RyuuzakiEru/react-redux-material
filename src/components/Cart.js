@@ -34,8 +34,6 @@ const useStyles = makeStyles({
 		margin: '0 auto'
 	},
 	closeButton: {
-		position: 'fixed',
-		top: '17%',
 		zIndex: 1400,
 		left: 0,
 		right: 0,

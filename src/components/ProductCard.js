@@ -12,6 +12,10 @@ import { Link } from 'react-router-dom';
 import { formatPrice } from '../lib/priceUtil';
 import { connect } from 'react-redux';
 
+
+import { fetchProducts } from '../actions/productActions';
+
+
 const useStyles = makeStyles(theme => ({
 	card: {
 		maxWidth: 340,
@@ -60,8 +64,9 @@ const useStyles = makeStyles(theme => ({
     	}
 }));
 
-function ProductCard(props) {
-	//console.log(props);
+const ProductCard = (props) => {
+    //console.log(props);
+
 	const classes = useStyles();
 	const { product } = props;
 

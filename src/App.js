@@ -16,8 +16,9 @@ export default class App extends Component {
 			<Provider store={store}>
                 <CssBaseline />
 				<ThemeProvider theme={theme}>
-					<Navigation />
+
 					<Router>
+                    <Navigation />
 						<Route path="/" exact component={ProductList} />
                         <Route path="/item/:id" exact component={ProductDetail} />
 					</Router>
