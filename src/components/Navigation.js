@@ -11,7 +11,7 @@ import SizeFilter from './SizeFilter';
 const useStyles = makeStyles(theme => ({
 	root: {
 		width: '100%',
-		padding: 5
+		padding: 10
 	},
 	flex: {
 		flex: 1,
