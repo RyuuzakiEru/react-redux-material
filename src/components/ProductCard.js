@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { Link } from 'react-router-dom';
 
 import { formatPrice } from '../lib/priceUtil';
 import { connect } from 'react-redux';
@@ -20,8 +21,8 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: 'flex-start'
 	},
 	title: {
-        minHeight: 30,
-        textTransform: 'uppercase'
+		minHeight: 30,
+		textTransform: 'uppercase'
 	},
 	media: {
 		height: 0,
@@ -43,16 +44,16 @@ const useStyles = makeStyles(theme => ({
 		background: "url('/img/tshirt.svg') no-repeat"
 	},
 	bottom: {
-        display: 'flex',
-        flexFlow: 'column',
-        flexBasis: '50%',
+		display: 'flex',
+		flexFlow: 'column',
+		flexBasis: '50%',
 		justifyContent: 'space-between'
-    },
-    salePrice: {
-        color: 'red',
-        textDecoration:'line-through',
-        marginLeft:5
-    }
+	},
+	salePrice: {
+		color: 'red',
+		textDecoration: 'line-through',
+		marginLeft: 5
+	}
 }));
 
 function ProductCard(props) {
@@ -65,26 +66,29 @@ function ProductCard(props) {
 	};
 	return (
 		<Card className={classes.card}>
-			<div className={classes.title}>
-				<Typography
-					className={classes.size}
-					color="textSecondary"
-					component="strong"
-				>
-					{product.size.substring(0, 1)}
-				</Typography>
-				<Typography color="textPrimary" component="h2">
-					{product.name}
-				</Typography>
+			<Link to={`/item/${product._id}`}>
+				<div className={classes.title}>
+					<Typography
+						className={classes.size}
+						color="textSecondary"
+						component="strong"
+					>
+						{product.size.substring(0, 1)}
+					</Typography>
+					<Typography color="textPrimary" component="h2">
+						{product.name}
+					</Typography>
 
-				<Typography color="textPrimary" component="strong">
-					{formatPrice(product.priceNumber)}
-				</Typography>
-                {product.onSale && <Typography className={classes.salePrice} component="span">
-					{product.price}
-				</Typography>
-                }
-			</div>
+					<Typography color="textPrimary" component="strong">
+						{formatPrice(product.priceNumber)}
+					</Typography>
+					{product.onSale && (
+						<Typography className={classes.salePrice} component="span">
+							{product.price}
+						</Typography>
+					)}
+				</div>
+			</Link>
 			<div>
 				{product.onSale && (
 					<img
@@ -101,13 +105,13 @@ function ProductCard(props) {
 					title={product.name}
 				/>
 			</div>
-			<div  className={classes.bottom}>
+			<div className={classes.bottom}>
 				<CardContent>
 					<Typography variant="body2" color="textSecondary" component="p">
 						{product.description}
 					</Typography>
 				</CardContent>
-				<CardActions >
+				<CardActions>
 					<IconButton aria-label="add to cart" onClick={handleAddToCart}>
 						<AddShoppingCartIcon />
 					</IconButton>

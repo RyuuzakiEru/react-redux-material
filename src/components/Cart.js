@@ -22,14 +22,13 @@ const useStyles = makeStyles({
 	appBar: {
 		top: 'auto',
 		bottom: 0,
-
 		height: 0,
 		boxShadow: 'none',
 		backgroundColor: 'transparent'
 	},
 	shopButton: {
 		zIndex: 999,
-		top: -60,
+		top: -80,
 		left: 0,
 		right: 0,
 		margin: '0 auto'
