@@ -137,7 +137,7 @@ class ProductDetail extends Component {
 							</CardContent>
 							<CardActions>
 								<IconButton aria-label="add to cart" onClick={this.handleAddToCart}>
-									<AddShoppingCartIcon />
+									<AddShoppingCartIcon /> Add to Cart
 								</IconButton>
 							</CardActions>
 						</div>
