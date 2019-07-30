@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import ProductCard from './ProductCard';
-import Loading from './Loading'
+import Loading from './Loading';
 import { fetchProducts } from '../actions/productActions';
 import { connect } from 'react-redux';
 
-import Navigation from './Navigation'
-import Box from '@material-ui/core/Box';
+import { withStyles } from '@material-ui/styles';
+import Navigation from './Navigation';
+import Container from '@material-ui/core/Container';
 
+const styles = theme => ({
+	container: {
+		display: 'flex',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+		justifyContent: 'flex-start'
+	}
+});
 class ProductList extends Component {
-
-
 	componentDidMount() {
 		this.props.dispatch(fetchProducts());
 	}
@@ -17,29 +24,27 @@ class ProductList extends Component {
 	//onChangePage = pageOfItems => this.setState({ pageOfItems: pageOfItems });
 
 	render() {
-        const { products, loading, error } = this.props.productList;
-        if(loading) return <Loading />
+		const { classes } = this.props;
+		const { products, loading, error } = this.props.productList;
+		if (loading) return <Loading />;
 
 		if (products) {
-
 			return (
-<>
-                <Navigation />
-				<Box
-					maxWidth="md"
-					display="flex"
-                    justifyContent="flex-start"
-					flexWrap="wrap"
-				>
-					{products.map(product => (
-                            this.props.productList.filter.sizes.includes(product.size) &&
-                            product.priceNumber > this.props.productList.filter.priceRange[0] &&
-                            product.priceNumber < this.props.productList.filter.priceRange[1] &&
-                            <ProductCard key={product._id} product={product} />
-
-					))}
-				</Box>
-                </>
+				<>
+					<Navigation />
+					<Container className={classes.container}>
+						{products.map(
+							product =>
+								this.props.productList.filter.sizes.includes(product.size) &&
+								product.priceNumber >
+									this.props.productList.filter.priceRange[0] &&
+								product.priceNumber <
+									this.props.productList.filter.priceRange[1] && (
+									<ProductCard key={product._id} product={product} />
+								)
+						)}
+					</Container>
+				</>
 			);
 		}
 		if (loading) return <p>Loading</p>;
@@ -51,5 +56,4 @@ const mapStateToProps = state => ({
 	productList: state.productList
 });
 
-
-export default connect(mapStateToProps)(ProductList);
+export default connect(mapStateToProps)(withStyles(styles)(ProductList));

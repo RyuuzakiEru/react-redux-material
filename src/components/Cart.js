@@ -8,7 +8,7 @@ import Fab from '@material-ui/core/Fab';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
-
+import Container from '@material-ui/core/Container';
 import { formatPrice } from '../lib/priceUtil';
 import { OPEN_CART, CLOSE_CART } from '../actions/cartActions';
 
@@ -49,15 +49,16 @@ const useStyles = makeStyles({
 	},
 	drawerPaper: {
 		height: '80%'
-    },
-    drawerBottomr: {
-        position: 'absolute',
-        height: '10%',
-        bottom: 0,
+	},
+	drawerBottom: {
+		position: 'absolute',
+		height: '10%',
+		bottom: 0,
+		textAlign: 'center'
 	},
 	cartCount: {
-        margin: 2,
-        padding: 2,
+		margin: 2,
+		padding: 2
 	}
 });
 
@@ -65,20 +66,23 @@ const ShoppingCartDrawer = props => {
 	const classes = useStyles();
 
 	const fullList = () => (
-		<div role="presentation">
+		<Container maxWidth="md">
 			<List className={classes.fullList}>
 				{props.cartItems.map(
 					cartItem =>
 						cartItem && <CartItem key={cartItem.id} id={cartItem.id} />
 				)}
 			</List>
-            <div className={classes.drawerBottomr}>Total {
-                formatPrice(props.cartItems.reduce(
-                    (total, item) => total + (item.qty * item.product.priceNumber),
-                    0
-                ))
-            }</div>
-		</div>
+			<div className={classes.drawerBottom}>
+				Total{' '}
+				{formatPrice(
+					props.cartItems.reduce(
+						(total, item) => total + item.qty * item.product.priceNumber,
+						0
+					)
+				)}
+			</div>
+		</Container>
 	);
 
 	return (
@@ -92,8 +96,8 @@ const ShoppingCartDrawer = props => {
 						onClick={props.openCart}
 					>
 						<Badge
-                            className={classes.cartCount}
-                            color="primary"
+							className={classes.cartCount}
+							color="primary"
 							badgeContent={props.cartItems.reduce(
 								(total, item) => total + item.qty,
 								0
