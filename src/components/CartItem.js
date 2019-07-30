@@ -9,10 +9,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
+
+import { formatPrice } from '../lib/priceUtil';
 import { ADD_TO_CART, DECREASE_QTY, REMOVE_FROM_CART } from '../actions/cartActions';
 
 
-function CartItem(props) {
+const CartItem = (props) => {
 	const { product } = props.item;
 
 	const handleRemoveFromCart = () => {
@@ -34,13 +37,16 @@ function CartItem(props) {
 					<img src={product.picture} alt={product.name} />
 				</Avatar>
 			</ListItemAvatar>
-			<ListItemText primary={product.name} secondary={props.qty} />
+			<ListItemText primary={product.name} secondary={`${formatPrice(product.priceNumber * props.qty)}`} />
+
 			<ListItemSecondaryAction>
 				<IconButton
 					onClick={handleAddToCart}
 				>
 					<AddCircleOutlineIcon />
 				</IconButton>
+
+                <Typography component="span">{props.qty}</Typography>
 				<IconButton
 					onClick={handleRemoveOneFromCart}
 				>

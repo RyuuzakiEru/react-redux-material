@@ -9,6 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 
+import { formatPrice } from '../lib/priceUtil';
 import { OPEN_CART, CLOSE_CART } from '../actions/cartActions';
 
 import CartItem from './CartItem';
@@ -48,6 +49,11 @@ const useStyles = makeStyles({
 	},
 	drawerPaper: {
 		height: '80%'
+    },
+    drawerBottomr: {
+        position: 'absolute',
+        height: '10%',
+        bottom: 0,
 	},
 	cartCount: {
         margin: 2,
@@ -66,6 +72,12 @@ const ShoppingCartDrawer = props => {
 						cartItem && <CartItem key={cartItem.id} id={cartItem.id} />
 				)}
 			</List>
+            <div className={classes.drawerBottomr}>Total {
+                formatPrice(props.cartItems.reduce(
+                    (total, item) => total + (item.qty * item.product.priceNumber),
+                    0
+                ))
+            }</div>
 		</div>
 	);
 
