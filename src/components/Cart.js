@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Fab from '@material-ui/core/Fab';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 
 import { OPEN_CART, CLOSE_CART } from '../actions/cartActions';
 
@@ -22,8 +23,8 @@ const useStyles = makeStyles({
 		top: 'auto',
 		bottom: 0,
 
-        height: 0,
-        boxShadow: 'none',
+		height: 0,
+		boxShadow: 'none',
 		backgroundColor: 'transparent'
 	},
 	shopButton: {
@@ -50,6 +51,10 @@ const useStyles = makeStyles({
 	},
 	drawerPaper: {
 		height: '80%'
+	},
+	cartCount: {
+        margin: 2,
+        padding: 2,
 	}
 });
 
@@ -77,7 +82,16 @@ const ShoppingCartDrawer = props => {
 						className={classes.shopButton}
 						onClick={props.openCart}
 					>
-						<ShoppingCartIcon />
+						<Badge
+                            className={classes.cartCount}
+                            color="primary"
+							badgeContent={props.cartItems.reduce(
+								(total, item) => total + item.qty,
+								0
+							)}
+						>
+							<ShoppingCartIcon />
+						</Badge>
 					</Fab>
 					<Drawer
 						variant="persistent"
