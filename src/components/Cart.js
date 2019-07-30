@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Fab from '@material-ui/core/Fab';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import { formatPrice } from '../lib/priceUtil';
@@ -18,7 +19,9 @@ import { connect } from 'react-redux';
 
 const useStyles = makeStyles({
 	fullList: {
-		width: '100%'
+		width: '100%',
+		paddingTop: 40,
+		paddingBottom: 40
 	},
 	appBar: {
 		top: 'auto',
@@ -35,10 +38,9 @@ const useStyles = makeStyles({
 		margin: '0 auto'
 	},
 	closeButton: {
-		zIndex: 1400,
-		left: 0,
-		right: 0,
-		margin: '0 auto'
+		zIndex: 2000,
+		position: 'fixed',
+		alignSelf: 'center'
 	},
 	drawerHeader: {
 		display: 'flex',
@@ -51,10 +53,9 @@ const useStyles = makeStyles({
 		height: '80%'
 	},
 	drawerBottom: {
-		position: 'absolute',
-		height: '10%',
+		position: 'fixed',
 		bottom: 0,
-		textAlign: 'center'
+		alignSelf: 'center'
 	},
 	cartCount: {
 		margin: 2,
@@ -73,15 +74,6 @@ const ShoppingCartDrawer = props => {
 						cartItem && <CartItem key={cartItem.id} id={cartItem.id} />
 				)}
 			</List>
-			<div className={classes.drawerBottom}>
-				Total{' '}
-				{formatPrice(
-					props.cartItems.reduce(
-						(total, item) => total + item.qty * item.product.priceNumber,
-						0
-					)
-				)}
-			</div>
 		</Container>
 	);
 
@@ -123,7 +115,33 @@ const ShoppingCartDrawer = props => {
 						>
 							<CloseIcon fontSize={'large'} />
 						</Fab>
-						{fullList()}
+
+                        {fullList()}
+                        {props.cartItems.length >0 &&
+
+                        <div className={classes.drawerBottom}>
+							<Fab
+                                variant="extended"
+								aria-label="checkout"
+								color="secondary"
+								className={classes.checkout}
+							>
+								Checkout
+								{` ` +formatPrice(
+									props.cartItems.reduce(
+										(total, item) =>
+											total + item.qty * item.product.priceNumber,
+										0
+									)
+								)}
+								<ArrowRightIcon fontSize={'large'} />
+							</Fab>
+						</div>
+
+
+
+                        }
+
 					</Drawer>
 				</Toolbar>
 			</AppBar>

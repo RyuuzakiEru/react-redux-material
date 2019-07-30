@@ -13,12 +13,10 @@ import { formatPrice } from '../lib/priceUtil';
 import { connect } from 'react-redux';
 
 
-import { fetchProducts } from '../actions/productActions';
-
 
 const useStyles = makeStyles(theme => ({
 	card: {
-		maxWidth: 340,
+		maxWidth: 300,
 		margin: 8,
 		display: 'flex',
 		flexFlow: 'column',

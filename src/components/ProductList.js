@@ -11,9 +11,9 @@ import Container from '@material-ui/core/Container';
 const styles = theme => ({
 	container: {
 		display: 'flex',
-        alignItems: 'flex-start',
+        alignItems: 'stretch',
         flexWrap: 'wrap',
-		justifyContent: 'flex-start'
+		justifyContent: 'space-evenly'
 	}
 });
 class ProductList extends Component {
