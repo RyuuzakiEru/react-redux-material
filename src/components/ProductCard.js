@@ -64,7 +64,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductCard = (props) => {
-    //console.log(props);
 
 	const classes = useStyles();
 	const { product } = props;

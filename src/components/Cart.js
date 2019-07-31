@@ -171,6 +171,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
+//In order to be able to Push to Router, we create withrouter HO component
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps

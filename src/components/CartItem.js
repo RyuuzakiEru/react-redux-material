@@ -67,6 +67,7 @@ const CartItem = (props) => {
 const mapStateToProps = (state, ownProps) => {
 	return {
         item: state.cart.cartItems.find(item => item.id === ownProps.id),
+        //For some Reason QTY was not updated in UI (even when bount to item), so i had to bind separately
         qty: state.cart.cartItems.find(item => item.id === ownProps.id).qty
 	};
 };
