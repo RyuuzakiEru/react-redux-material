@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 		flexFlow: 'column',
         justifyContent: 'flex-start',
-        boxShadow: '0 4px 2px -2px grey',
 	},
 	title: {
 		minHeight: 30,

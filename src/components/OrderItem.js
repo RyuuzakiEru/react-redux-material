@@ -22,8 +22,17 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
 	item: {
 		width: '100%',
+		display: 'flex',
+		flexWrap: 'wrap',
+
+		boxShadow: '0 4px 2px -2px grey',
 		paddingTop: 40,
 		paddingBottom: 40
+	},
+	actions: {
+		position: 'relative',
+
+		transform: 'none'
 	}
 });
 
@@ -65,7 +74,7 @@ const OrderItem = props => {
 					product.priceNumber * props.qty
 				)}`}
 			/>
-			<ListItemSecondaryAction>
+			<ListItemSecondaryAction className={classes.actions}>
 				<IconButton onClick={handleAddToCart}>
 					<AddCircleOutlineIcon />
 				</IconButton>
