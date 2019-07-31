@@ -7,6 +7,7 @@ import theme from './theme';
 import store from './store';
 import ProductList from './components/ProductList';
 import ProductDetail from './components/ProductDetail';
+import Checkout from './components/Checkout';
 import Cart from './components/Cart';
 
 export default class App extends Component {
@@ -19,8 +20,10 @@ export default class App extends Component {
 					<Router>
 						<Route path="/" exact component={ProductList} />
                         <Route path="/item/:id" exact component={ProductDetail} />
+                        <Route path="/checkout" exact component={Checkout} />
+                        <Cart />
 					</Router>
-                    <Cart />
+
 				</ThemeProvider>
 			</Provider>
 		);

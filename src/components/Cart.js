@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -54,7 +56,7 @@ const useStyles = makeStyles({
 	},
 	drawerBottom: {
 		position: 'fixed',
-		bottom: 0,
+		bottom: 30,
 		alignSelf: 'center'
 	},
 	cartCount: {
@@ -65,6 +67,8 @@ const useStyles = makeStyles({
 
 const ShoppingCartDrawer = props => {
 	const classes = useStyles();
+    const { history } = props;
+	const { location } = props;
 
 	const fullList = () => (
 		<Container maxWidth="md">
@@ -77,8 +81,17 @@ const ShoppingCartDrawer = props => {
 		</Container>
 	);
 
+	const handleCheckout = e => {
+		e.preventDefault();
+		history.push('/checkout');
+	};
+
+    // hide shopping cart on checkout but keep it inside Router context
+	if (location.pathname.match('/checkout') || props.cartItems.length < 1) {
+		return null;
+	}
 	return (
-		<div>
+		<Fade in={props.cartItems.length > 0}>
 			<AppBar className={classes.appBar}>
 				<Toolbar>
 					<Fab
@@ -116,36 +129,33 @@ const ShoppingCartDrawer = props => {
 							<CloseIcon fontSize={'large'} />
 						</Fab>
 
-                        {fullList()}
-                        {props.cartItems.length >0 &&
-
-                        <div className={classes.drawerBottom}>
-							<Fab
-                                variant="extended"
-								aria-label="checkout"
-								color="secondary"
-								className={classes.checkout}
-							>
-								Checkout
-								{` ` +formatPrice(
-									props.cartItems.reduce(
-										(total, item) =>
-											total + item.qty * item.product.priceNumber,
-										0
-									)
-								)}
-								<ArrowRightIcon fontSize={'large'} />
-							</Fab>
-						</div>
-
-
-
-                        }
-
+						{fullList()}
+						{props.cartItems.length > 0 && (
+							<div className={classes.drawerBottom}>
+								<Fab
+									variant="extended"
+									aria-label="checkout"
+									color="secondary"
+									className={classes.checkout}
+									onClick={handleCheckout}
+								>
+									Checkout
+									{` ` +
+										formatPrice(
+											props.cartItems.reduce(
+												(total, item) =>
+													total + item.qty * item.product.priceNumber,
+												0
+											)
+										)}
+									<ArrowRightIcon fontSize={'large'} />
+								</Fab>
+							</div>
+						)}
 					</Drawer>
 				</Toolbar>
 			</AppBar>
-		</div>
+		</Fade>
 	);
 };
 
@@ -164,4 +174,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ShoppingCartDrawer);
+)(withRouter(ShoppingCartDrawer));

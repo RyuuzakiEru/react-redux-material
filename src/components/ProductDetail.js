@@ -8,12 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import Loading from './Loading';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { Link } from 'react-router-dom';
 
+import SimpleNav from './SimpleNav';
 import { formatPrice } from '../lib/priceUtil';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fetchProducts } from '../actions/productActions';
 import { connect } from 'react-redux';
 
@@ -98,13 +97,7 @@ class ProductDetail extends Component {
 		if (product) {
 			return (
 				<>
-					<Paper>
-						<Link to="/"  className={classes.root} component="button">
-							<ArrowBackIosIcon />
-
-                        <Typography className={classes.heading}>Back</Typography>
-						</Link>
-					</Paper>
+					<SimpleNav title="Continue Shopping" />
 					<Container maxWidth="lg" className={classes.container}>
 						<Card className={classes.card}>
 							<div className="title">
@@ -171,12 +164,8 @@ class ProductDetail extends Component {
 		} else {
 			return (
 				<Container maxWidth="lg">
-					<Link to="/" className={classes.link}>
-						<ArrowBackIosIcon />
-					</Link>
-					<Typography component="h1">
-						No such item {this.props.match.params.id}
-					</Typography>
+					<SimpleNav title="Continue Shopping" />
+                    <Loading />
 				</Container>
 			);
 		}
