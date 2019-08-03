@@ -23,7 +23,7 @@ export const closeCart = () => {
         type: CLOSE_CART
     }
 }
-//
+//adds or creates
 export const addProduct = product => {
     return {
         type: ADD_TO_CART,

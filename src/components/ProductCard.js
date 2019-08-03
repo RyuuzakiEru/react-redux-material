@@ -69,7 +69,8 @@ const ProductCard = (props) => {
 
 	const handleAddToCart = () => {
 		props.addToCart(props.product);
-	};
+    };
+    
 	return (
 		<Card className={classes.card}>
 			<Link to={`/item/${product._id}`} className={classes.link}>

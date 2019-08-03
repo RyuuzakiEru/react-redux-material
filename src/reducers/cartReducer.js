@@ -36,7 +36,7 @@ export default function cartReducer(state = defaultState, action) {
 
 		/** Adds or increases quantity if exist */
 		case ADD_TO_CART:
-			const { product } = action;
+            const { product } = action;
 
 			let nextItemIndex = nextCartItems.findIndex(
 				item => item && item.id === product._id
