@@ -68,16 +68,16 @@ describe('Product fetching reducer', () => {
   });
 
   it('Product fetch error puts loading false error to true', () => {
-    expect(rootReducer(initialState, productActions.fetchProductsFailure(mockProductsFetch))).toEqual({
+    expect(rootReducer(initialState, productActions.fetchProductsFailure())).toEqual({
       cart: { cartItems: [], cartOpen: false },
       productList: {
         filter: {
           sizes: ['small', 'medium', 'large'],
           priceRange: [0, 10000]
         },
-        products: mockProductsFetch,
+        products: [],
         loading: false,
-        error: false
+        error: true
       },
       routing: { locationBeforeTransitions: null }
     });
