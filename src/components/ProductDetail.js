@@ -8,185 +8,183 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Loading from './Loading';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { connect } from 'react-redux';
+import Loading from './Loading';
 
 import SimpleNav from './SimpleNav';
 import { formatPrice } from '../lib/priceUtil';
 import { fetchProducts } from '../actions/productActions';
-import { connect } from 'react-redux';
 
-const styles = theme => ({
-    root: {
-		width: '100%',
-        padding: 20,
-        display: 'flex',
-        textDecoration: 'none'
-	},
-	container: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	card: {
-		maxWidth: 600,
-		margin: 8,
-		display: 'flex',
-		flexFlow: 'column',
-		justifyContent: 'flex-start',
-		marginBottom: 40
-	},
-	title: {
-		minHeight: 30,
-		textTransform: 'uppercase'
-	},
-	link: {
-		textDecoration: 'none'
-	},
-	media: {
-		height: 0,
-		marginTop: 10,
-		paddingTop: '56.25%' // 16:9
-	},
-	sale: {
-		position: 'absolute',
-		marginLeft: 10,
-		paddingTop: 10
-	},
-	size: {
-		width: 30,
-		float: 'right',
-		padding: 3,
-		marginTop: 3,
-		textAlign: 'center',
-		textTransform: 'uppercase',
-		background: "url('/img/tshirt.svg') no-repeat"
-	},
-	bottom: {
-		display: 'flex',
-		flexFlow: 'column',
-		flexBasis: '50%',
-		justifyContent: 'space-between'
-	},
-	salePrice: {
-		color: 'red',
-		textDecoration: 'line-through',
-		marginLeft: 5,
-		fontSize: '0.9em'
-	}
+const styles = () => ({
+  root: {
+    width: '100%',
+    padding: 20,
+    display: 'flex',
+    textDecoration: 'none'
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  card: {
+    maxWidth: 600,
+    margin: 8,
+    display: 'flex',
+    flexFlow: 'column',
+    justifyContent: 'flex-start',
+    marginBottom: 40
+  },
+  title: {
+    minHeight: 30,
+    textTransform: 'uppercase'
+  },
+  link: {
+    textDecoration: 'none'
+  },
+  media: {
+    height: 0,
+    marginTop: 10,
+    paddingTop: '56.25%' // 16:9
+  },
+  sale: {
+    position: 'absolute',
+    marginLeft: 10,
+    paddingTop: 10
+  },
+  size: {
+    width: 30,
+    float: 'right',
+    padding: 3,
+    marginTop: 3,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    background: "url('/img/tshirt.svg') no-repeat"
+  },
+  bottom: {
+    display: 'flex',
+    flexFlow: 'column',
+    flexBasis: '50%',
+    justifyContent: 'space-between'
+  },
+  salePrice: {
+    color: 'red',
+    textDecoration: 'line-through',
+    marginLeft: 5,
+    fontSize: '0.9em'
+  }
 });
 class ProductDetail extends Component {
-	constructor(props) {
-		super(props);
-		// bind "this" to handleAddToCart scope
-		this.handleAddToCart = this.handleAddToCart.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    // bind "this" to handleAddToCart scope
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+  }
 
-	componentDidMount() {
-		this.props.fetchProducts();
-	}
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
 
-	handleAddToCart() {
-		this.props.addToCart(this.props.product);
-	}
+  handleAddToCart() {
+    this.props.addToCart(this.props.product);
+  }
 
-	render() {
-		const { classes } = this.props;
-		const { product } = this.props;
+  render() {
+    const { classes } = this.props;
+    const { product } = this.props;
 
-		if (product) {
-			return (
-				<>
-					<SimpleNav title="Continue Shopping" />
-					<Container maxWidth="lg" className={classes.container}>
-						<Card className={classes.card}>
-							<div className="title">
-								<Typography
-									className={classes.size}
-									color="textSecondary"
-									component="strong"
-								>
-									{product.size.substring(0, 1)}
-								</Typography>
-								<Typography color="textPrimary" component="h2">
-									{product.name}
-								</Typography>
+    if (product) {
+      return (
+        <>
+          <SimpleNav title="Continue Shopping" />
+          <Container maxWidth="lg" className={classes.container}>
+            <Card className={classes.card}>
+              <div className="title">
+                <Typography
+                  className={classes.size}
+                  color="textSecondary"
+                  component="strong">
+                  {product.size.substring(0, 1)}
+                </Typography>
+                <Typography color="textPrimary" component="h2">
+                  {product.name}
+                </Typography>
 
-								<Typography color="textPrimary" component="strong">
-									{formatPrice(product.priceNumber)}
-								</Typography>
-								{product.onSale && (
-									<Typography className={classes.salePrice} component="span">
-										{product.price}
-									</Typography>
-								)}
-							</div>
-							<div className="media">
-								{product.onSale && (
-									<img
-										className={classes.sale}
-										src="/img/discount.svg"
-										alt="On Sale"
-										height="50"
-										width="50"
-									/>
-								)}
-								<CardMedia
-									className={classes.media}
-									image={product.picture}
-									title={product.name}
-								/>
-							</div>
+                <Typography color="textPrimary" component="strong">
+                  {formatPrice(product.priceNumber)}
+                </Typography>
+                {product.onSale && (
+                  <Typography className={classes.salePrice} component="span">
+                    {product.price}
+                  </Typography>
+                )}
+              </div>
+              <div className="media">
+                {product.onSale && (
+                  <img
+                    className={classes.sale}
+                    src="/img/discount.svg"
+                    alt="On Sale"
+                    height="50"
+                    width="50"
+                  />
+                )}
+                <CardMedia
+                  className={classes.media}
+                  image={product.picture}
+                  title={product.name}
+                />
+              </div>
 
-							<div className={classes.bottom}>
-								<CardContent>
-									<Typography
-										variant="body2"
-										color="textSecondary"
-										component="p"
-									>
-										{product.description}
-									</Typography>
-								</CardContent>
-								<CardActions>
-									<IconButton
-										aria-label="add to cart"
-										onClick={this.handleAddToCart}
-									>
-										<AddShoppingCartIcon /> Add to Cart
-									</IconButton>
-								</CardActions>
-							</div>
-						</Card>
-					</Container>
-				</>
-			);
-		} else {
-			return (
-				<Container maxWidth="lg">
-					<SimpleNav title="Continue Shopping" />
-                    <Loading />
-				</Container>
-			);
-		}
-	}
+              <div className={classes.bottom}>
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p">
+                    {product.description}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <IconButton
+                    aria-label="add to cart"
+                    onClick={this.handleAddToCart}
+                  >
+                    <AddShoppingCartIcon />
+                    {' Add to Cart'}
+                  </IconButton>
+                </CardActions>
+              </div>
+            </Card>
+          </Container>
+        </>
+      );
+    }
+    return (
+      <Container maxWidth="lg">
+        <SimpleNav title="Continue Shopping" />
+        <Loading />
+      </Container>
+    );
+  }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	productList: state.productList,
-	product: state.productList.products.filter(
-		product => product._id === ownProps.match.params.id
-	)[0]
+  productList: state.productList,
+  product: state.productList.products.filter(
+    ({ _id }) => _id === ownProps.match.params.id
+  )[0]
 });
 
 const mapDispatchToProps = dispatch => {
-	return {
-		addToCart: product => dispatch({ type: 'ADD_TO_CART', product }),
-		fetchProducts: () => dispatch(fetchProducts())
-	};
+  return {
+    addToCart: product => dispatch({ type: 'ADD_TO_CART', product }),
+    fetchProducts: () => dispatch(fetchProducts())
+  };
 };
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withStyles(styles)(ProductDetail));

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
@@ -10,22 +10,18 @@ import ProductDetail from './components/ProductDetail';
 import Checkout from './components/Checkout';
 import Cart from './components/Cart';
 
-export default class App extends Component {
-	render() {
-		return (
-			<Provider store={store}>
-                <CssBaseline />
-				<ThemeProvider theme={theme}>
+const App = () => (
+  <Provider store={store}>
+    <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Route path="/" exact component={ProductList} />
+        <Route path="/item/:id" exact component={ProductDetail} />
+        <Route path="/checkout" exact component={Checkout} />
+        <Cart />
+      </Router>
+    </ThemeProvider>
+  </Provider>
+);
 
-					<Router>
-						<Route path="/" exact component={ProductList} />
-                        <Route path="/item/:id" exact component={ProductDetail} />
-                        <Route path="/checkout" exact component={Checkout} />
-                        <Cart />
-					</Router>
-
-				</ThemeProvider>
-			</Provider>
-		);
-	}
-}
+export default App;

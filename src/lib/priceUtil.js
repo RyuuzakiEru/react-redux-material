@@ -2,20 +2,13 @@
 const NUM_DECIMALS = 2;
 const DECIMAL_SEPARATOR = '.';
 
-export const parsePrice = priceString => {
-	// if we have NUM_DECIMALS decimals AFTER  DECIMAL_SEPARATOR, multiplier is 0, this way we add as many zeroes as neeced
-	const multiplier = Math.max(
-		1,
-		(NUM_DECIMALS -
-			(priceString.replace(/[^0-9.]/g, '').split(DECIMAL_SEPARATOR)[1] || '')
-				.length) *
-			10
-	);
+export const parsePrice = (priceString) => {
+  const decimalPart = priceString.split(DECIMAL_SEPARATOR)[1] || '';
 
-	return priceString.replace(/\D/g, '') * multiplier;
+  const multiplier = 10 ** Math.max(0, NUM_DECIMALS - decimalPart.length);
+
+  return priceString.replace(/\D/g, '') * (multiplier);
 };
 
 
-export const formatPrice = priceNumber => {
-    return (priceNumber/100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-}
+export const formatPrice = priceNumber => (priceNumber / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
