@@ -1,6 +1,4 @@
 export default {
-  get: jest.fn(() =>
-    Promise.resolve({
       products: [
         {
           _id: '5d1f237e8f3903e269cab399',
@@ -42,6 +40,4 @@ export default {
             'Qui commodo nostrud dolor occaecat pariatur fugiat. Veniam tempor duis fugiat velit labore. Proident mollit minim anim tempor cupidatat exercitation ut.'
         }
       ]
-    })
-  )
 };
