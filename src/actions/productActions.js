@@ -1,5 +1,5 @@
 import { parsePrice } from '../lib/priceUtil';
-
+import fetchProductsMock from '../__mocks__/fetchProducts.mock'
 export const FETCH_PRODUCTS_BEGIN = 'FETCH_PRODUCTS_BEGIN';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
@@ -13,9 +13,9 @@ function handleErrors(response) {
   return response;
 }
 function getProducts() {
-  return fetch('http://www.mocky.io/v2/5d1f23b53100003e74ebeaee')
-    .then(handleErrors)
-    .then(res => res.json());
+  return new Promise ( (resolve,reject) => {
+      resolve(fetchProductsMock)
+  })
 }
 
 export const fetchProductsBegin = () => ({
