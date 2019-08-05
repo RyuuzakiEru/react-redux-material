@@ -3,7 +3,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["airbnb", "plugin:jest/recommended","prettier"],
+  "extends": ["airbnb", "plugin:jest/recommended","prettier","no-unused-expressions"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
